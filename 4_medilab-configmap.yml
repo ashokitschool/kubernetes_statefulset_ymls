@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap 
+metadata:
+  name: medilab-config-map
+  namespace: medilab-db-ns
+  labels:
+   type: storage
+data: 
+ MEDILAB_DB_SCHEMA_NAME: medilab-db-schema
+ MEDIALB_DB_CONTAINER_NAME: medilab-app-db-container
+ MEDILAB_DB_CONTAINER_PORT: "3306"
+  

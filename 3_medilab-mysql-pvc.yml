@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: medilab-mysql-pvc
+  namespace: medilab-db-ns
+spec:
+  volumeName: medilab-mysql-pv     
+  accessModes:
+    - ReadWriteOnce
+  #storageClassName: medilab-nfs-storage-class
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 4Gi

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: medilab-db-deployment
+  namespace: medilab-db-ns
+  labels:
+    type: db
+    env: dev
+spec:
+  replicas: 3
+  serviceName: medilab-db-service
+  selector:
+    matchLabels:
+      app: medilab-app-db
+  template:
+    metadata:
+        labels: 
+          app: medilab-app-db
+    spec:
+      volumes:
+        - name: medilab-app-data
+          persistentVolumeClaim:
+            claimName: medilab-mysql-pvc
+        
+      containers:
+        - name: medilab-app-db-container
+          image: mysql
+          ports:
+            - containerPort: 3306
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
+          volumeMounts:
+            - name: medilab-app-data
+              mountPath: /var/lib/mysql
+          env:
+            - name: MYSQL_DATABASE
+              #value: medilab-app-schema
+              valueFrom:
+                configMapKeyRef:
+                  key: MEDILAB_DB_SCHEMA_NAME
+                  name: medilab-config-map
+            #- name: MYSQL_USER
+             # value: root
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+              #valueFrom:
+                #secretKeyRef:
+                 # name: medilab-config-secret
+                 # key: medilab-db-password
+      restartPolicy: Always
+
+    

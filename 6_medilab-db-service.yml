@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: medilab-db-service
+  namespace: medilab-db-ns
+  labels:
+    type: service
+    env: dev
+spec:
+  #type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 3306 
+      targetPort: 3306
+  selector:
+    app: medilab-app-db
+      
