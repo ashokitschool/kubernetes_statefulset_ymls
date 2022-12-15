@@ -1,4 +1,4 @@
-# kubernetes_statefulset_ymls
+# Kubernetes StatefulSet Configuration
 
 # Step-1 : Execute Namespace manifest
 
@@ -20,6 +20,6 @@
 
     $ kubectl apply -f <filename>
 
-# Step-5 : Execute Service Manifest (Headless Service)
+# Step-6 : Execute Service Manifest (Headless Service)
 
     $ kubectl apply -f <filename>
